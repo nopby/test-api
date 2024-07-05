@@ -24,6 +24,12 @@ builder.Services.AddHttpClient("Ilcs", config =>
 });
 
 var app = builder.Build();
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Minimal API V1");
+    c.RoutePrefix = string.Empty;
+});
 var simulasi = app.MapGroup("/simulasi");
 simulasi.MapGet("/{kodeBarang}/{nilaiKomoditas}", async (string kodeBarang, float nilaiKomoditas, IHttpClientFactory httpClientFactory, AppDbContext context) =>
 {
